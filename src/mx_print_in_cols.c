@@ -104,7 +104,6 @@ void mx_long_col_print(t_list *list)
     {
 
         splited[i] = mx_strsplit(cur->data, ' ');
-        mx_strdel((char **)&cur->data);
         cur = cur->next;
     }
     for (int i = 0; splited[0][i] != NULL; i++)
@@ -114,9 +113,9 @@ void mx_long_col_print(t_list *list)
     {
         max_sizes[i] = get_max_len(splited, i, count);
     }
+    cur = list;
     for (int i = 0; i < count; i++)
     {
-
         for (int j = 0; j < parts; j++)
         {
             if (!splited[i][j])
@@ -124,34 +123,60 @@ void mx_long_col_print(t_list *list)
                 mx_printchar('\n');
                 break;
             }
-            if (j + 1 == parts)
+            if (j == 5)
             {
-                mx_printstr(splited[i][j]);
+                mx_printstr(mx_strstr(cur->data, splited[i][j]));
                 mx_printchar('\n');
                 break;
             }
-            if (j >= 8)
-            {
-                mx_printstr(splited[i][j]);
-                if (parts > j)
-                    mx_printchar(' ');
-                continue;
-            }
-            if ((!mx_isdigit(splited[i][j][0]) || j == 2 || j == 3) && j != 5)
+            // if (j == 0)
+            // {
+            //     mx_printstr(splited[i][j]);
+            //     print_spaces(splited[])
+            // }
+            if (j == 0 || j == 2 || j == 3)
             {
                 mx_printstr(splited[i][j]);
                 print_spaces(splited[i][j], max_sizes[j]);
                 mx_printstr("  ");
                 continue;
             }
-            if (mx_isdigit(splited[i][j][0]) || j == 5)
+            if (mx_isdigit(splited[i][j][0]))
             {
                 print_spaces(splited[i][j], max_sizes[j]);
                 mx_printstr(splited[i][j]);
                 mx_printchar(' ');
-                continue;
             }
+            // if (j + 1 == parts)
+            // {
+            //     mx_printstr(splited[i][j]);
+            //     mx_printchar('\n');
+            //     break;
+            // }
+            // if (j >= 8)
+            // {
+            //     mx_printstr(splited[i][j]);
+            //     if (parts > j)
+            //         mx_printchar(' ');
+            //     continue;
+            // }
+            // if ((!mx_isdigit(splited[i][j][0]) || j == 2 || j == 3) && j != 5)
+            // {
+            //     mx_printstr(splited[i][j]);
+            //     print_spaces(splited[i][j], max_sizes[j]);
+            //     mx_printstr("  ");
+            //     continue;
+            // }
+            // if (mx_isdigit(splited[i][j][0]) || j == 5)
+            // {
+            //     print_spaces(splited[i][j], max_sizes[j]);
+            //     mx_printstr(splited[i][j]);
+            //     mx_printchar(' ');
+            //     continue;
+            // }
         }
+        mx_strdel((char **)&cur->data);
+        cur = cur->next;
         mx_del_strarr(&splited[i]);
     }
     free(splited);

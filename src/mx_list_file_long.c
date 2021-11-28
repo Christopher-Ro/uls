@@ -28,6 +28,7 @@ static char *get_time_trimmed(time_t file_time)
     if (mx_strcmp(cur_time_buf[4], split_bufer[4]))
     {
         *mx_strchr(split_bufer[4], '\n') = '\0';
+        mx_str_concat(&res, " ");
         mx_str_concat(&res, split_bufer[4]);
     }
     else
@@ -82,7 +83,6 @@ char *mx_list_file_long(char *src, int *block_count)
         mx_str_concat(&res, temp_buf);
         mx_strdel(&temp_buf);
     }
-    // ./uls -l /Users/chris/Library/Application\ Support/Code/CachedData/ccbaa2d27e38e5afa3e5c21c1c7bef4657064247 -- Segfault
     else
         mx_str_concat(&res, getgrgid(file_info.st_gid)->gr_name);
     mx_str_concat(&res, " ");
