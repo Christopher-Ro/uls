@@ -78,7 +78,7 @@ bool mx_list_dir_content(char *dir_name, char *flags)
     if (!mx_strchr(flags, 'l'))
         mx_col_print(to_print);
     else
-        print_list_long(dir_name, to_print); // remake
+        print_list_long(dir_name, to_print);
     if (!to_print)
         is_empty = true;
     mx_del_list(&to_print);
@@ -98,6 +98,5 @@ bool mx_list_dir_content(char *dir_name, char *flags)
             curr = curr->next;
         }
     }
-    // mx_del_list(&inner_dir_names);
     return is_empty;
 }

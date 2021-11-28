@@ -14,20 +14,31 @@ static char *get_permitions(mode_t mode)
     res[8] = S_IXOTH & mode ? 'x' : '-';
     return res;
 }
-static char *get_time_trimmed(time_t time)
+static char *get_time_trimmed(time_t file_time)
 {
-    char **split_bufer = mx_strsplit(ctime(&time), ' ');
+    char **split_bufer = mx_strsplit(ctime(&file_time), ' ');
+    time_t cur_time = time(NULL);
+    char **cur_time_buf = mx_strsplit(ctime(&cur_time), ' ');
     char **clock_bufer = mx_strsplit(split_bufer[3], ':');
     char *res = NULL;
     mx_str_concat(&res, split_bufer[1]);
     mx_str_concat(&res, " ");
     mx_str_concat(&res, split_bufer[2]);
     mx_str_concat(&res, " ");
-    mx_str_concat(&res, clock_bufer[0]);
-    mx_str_concat(&res, ":");
-    mx_str_concat(&res, clock_bufer[1]);
+    if (mx_strcmp(cur_time_buf[4], split_bufer[4]))
+    {
+        *mx_strchr(split_bufer[4], '\n') = '\0';
+        mx_str_concat(&res, split_bufer[4]);
+    }
+    else
+    {
+        mx_str_concat(&res, clock_bufer[0]);
+        mx_str_concat(&res, ":");
+        mx_str_concat(&res, clock_bufer[1]);
+    }
     mx_del_strarr(&clock_bufer);
     mx_del_strarr(&split_bufer);
+    mx_del_strarr(&cur_time_buf);
     return res;
 }
 
