@@ -129,11 +129,6 @@ void mx_long_col_print(t_list *list)
                 mx_printchar('\n');
                 break;
             }
-            // if (j == 0)
-            // {
-            //     mx_printstr(splited[i][j]);
-            //     print_spaces(splited[])
-            // }
             if (j == 0 || j == 2 || j == 3)
             {
                 mx_printstr(splited[i][j]);
@@ -147,33 +142,6 @@ void mx_long_col_print(t_list *list)
                 mx_printstr(splited[i][j]);
                 mx_printchar(' ');
             }
-            // if (j + 1 == parts)
-            // {
-            //     mx_printstr(splited[i][j]);
-            //     mx_printchar('\n');
-            //     break;
-            // }
-            // if (j >= 8)
-            // {
-            //     mx_printstr(splited[i][j]);
-            //     if (parts > j)
-            //         mx_printchar(' ');
-            //     continue;
-            // }
-            // if ((!mx_isdigit(splited[i][j][0]) || j == 2 || j == 3) && j != 5)
-            // {
-            //     mx_printstr(splited[i][j]);
-            //     print_spaces(splited[i][j], max_sizes[j]);
-            //     mx_printstr("  ");
-            //     continue;
-            // }
-            // if (mx_isdigit(splited[i][j][0]) || j == 5)
-            // {
-            //     print_spaces(splited[i][j], max_sizes[j]);
-            //     mx_printstr(splited[i][j]);
-            //     mx_printchar(' ');
-            //     continue;
-            // }
         }
         mx_strdel((char **)&cur->data);
         cur = cur->next;
